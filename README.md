@@ -1,61 +1,26 @@
-# Android App for Real-time Face Landmark Detection
+# Introduction
 
-Fast Face is an android application which detects facial landmark . It detects 68 landmarks of human face <br />
-chin to eyebrow in real-time. Also, it can detect people up to 3 if you guys show your frontal faces. <br /> 
+detectionWithDlib is an android application which can detect your blinking movements and head orientation. It's based on [fast-face-android
+](https://github.com/gicheonkang/fast-face-android),which make an upgraded from [dlib-android](https://github.com/tzutalin/dlib-android), fast-face-android using facing front camera instead and speeds up 2x or more from the original.<br />
 
-It is an upgraded version of [dlib-android](https://github.com/tzutalin/dlib-android), Not only revising the code but additional task for optimizing dlib library was needed. 
-As a result, Fast Face speeds up 2x or more from the original. Higher resoluton, Higher speed.<br />
+before you start the detection, there are 3 option for you to choose, see from the screenshot below.<br />
 
-I think it is not the best one, there are some issues that can be more speedy one. <br />
-So, if you guys already improved or want to improve this code, feel free to contact me. Test and Enjoy it :) <br />
+<img src="demo/setting.png" width="300">
+
+## eyes blink detection
+
+I have implemented blink detection on Python before, so I just ported ito Android.<br />
+
+blink detection needs to process data of every frame, [AndroidCamera-ProcessFrames
+](https://github.com/zhantong/AndroidCamera-ProcessFrames) provides some ways to process frame without frame-loss, I use one of them.
+
+### Screenshot
+<img src="demo/eyesBlinkDetection.png" width="300">
 <br />
 
-## Screenshot
-<img src="demo/demo.png" width="300">
-<br />
+## head orientation detection
 
-## Environments
-* DEVICE : SAMSUNG-A8 2015(@cortex-a53 core)
-* API    : 23 (Android 6.0.1)
-* TIME   : 50ms ~ 70ms
-<br />
+it's easy to judge the orientation of a head with the help of Dlib's 68 face landmark
 
-## Features
-
-* Support HOG detector
-* HOG Face detection
-* Facial Landmark/Expression
-<br />
-
-## Sample code
-
-Facial landmark detection
-```java
-
-// detecs every 3 frames
-if(mframeNum % 3 == 0){
-    synchronized (OnGetImageListener.this) {
-        results = mFaceDet.detect(mResizedBitmap);
-    }
-}
-
-// Draw on bitmap
-if (results.size() != 0) {
-    for (final VisionDetRet ret : results) {
-        float resizeRatio = 4.5f;
-        Canvas canvas = new Canvas(mInversedBipmap);
-
-        // Draw landmark
-        ArrayList<Point> landmarks = ret.getFaceLandmarks();
-        for (Point point : landmarks) {
-            int pointX = (int) (point.x * resizeRatio);
-            int pointY = (int) (point.y * resizeRatio);
-            canvas.drawCircle(pointX, pointY, 4, mFaceLandmardkPaint);
-        }
-     }
-}
-```
-<br />
-
-## License
-[License](LICENSE.md)
+### Sreenshot
+<img src="demo/headOrientationDetection2.png" width="300">     <img src="demo/headOrientationDetection3.png" width="300">
