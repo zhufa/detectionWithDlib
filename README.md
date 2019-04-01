@@ -9,7 +9,7 @@ before you start the detection, there are 3 option for you to choose, see from t
 
 ## eyes blink detection
 
-I have implemented blink detection on Python before, so I just ported ito Android.<br />
+I have implemented blink detection on Python before, so I just ported it to Android.<br />
 
 blink detection needs to process data of every frame, [AndroidCamera-ProcessFrames
 ](https://github.com/zhantong/AndroidCamera-ProcessFrames) provides some ways to process frame without frame-loss, I use one of them.
